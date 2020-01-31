@@ -1,3 +1,10 @@
 bola
 casa
 massa
+gato
+mesa
+cadeira
+bule
+xicara
+copo
+panela
