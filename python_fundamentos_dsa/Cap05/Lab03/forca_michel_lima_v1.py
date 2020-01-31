@@ -1,6 +1,35 @@
 # -*- coding:utf-8 -*-
+# importacao de bibliotecas
+import random
 
-lista_tabuleiro = []
+# saudacao inicial
+print('\n ---------------- JOGO DA FORCA ---------------- \n')
 
-print[lista_tabuleiro]
+# lista que exibe o tabuleiro
+tabuleiro = ['''
+  +-------------+
+  |             |
+  |
+  |
+  |
+  |
+  |
+  |
+  |
+  ''','''
+     +-------------+
+  |             |
+  |             o 
+  |             
+  |
+  |
+  |
+  |
+  |
+  '''
+             ''']
+
+# exibe o tabuleiro na tela
+for i in tabuleiro:
+    print(i)
 
