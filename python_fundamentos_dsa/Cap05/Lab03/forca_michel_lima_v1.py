@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
-# importacao de bibliotecas
+# import libraries
 import random
 
-# saudacao inicial
-print('\n ---------------- JOGO DA FORCA ---------------- \n')
+# start screen
+print('\n ---------------- JOGO DA FORCA ---------------- ')
 
-# lista que exibe o tabuleiro
-tabuleiro = ['''
+# list that displays the hangman
+board = ['''
   +-------------+
   |             |
   |
@@ -16,20 +16,73 @@ tabuleiro = ['''
   |
   |
   |
-  ''','''
-     +-------------+
+             ''',
+             '''
+  +-------------+
   |             |
-  |             o 
+  |             O
+  |
+  |
+  |
+  |
+  |
   |             
+             ''',
+             '''
+  +-------------+
+  |             |
+  |             O
+  |             |
+  |             |
   |
   |
   |
+  |           
+             ''',
+             '''
+  +-------------+
+  |             |
+  |             O
+  |            /|
+  |             |
+  |            
   |
   |
-  '''
+  |           
+             ''',
+             '''
+  +-------------+
+  |             |
+  |             O
+  |            /|\ 
+  |             |
+  |            
+  |
+  |
+  |           
+             ''',
+             '''
+  +-------------+
+  |             |
+  |             O
+  |            /|\ 
+  |             |
+  |            /
+  |
+  |
+  |                
+             ''',
+             '''
+  +-------------+
+  |             |
+  |             O
+  |            /|\ 
+  |             |
+  |            / \ 
+  |
+  |
+  |             
              ''']
 
-# exibe o tabuleiro na tela
-for i in tabuleiro:
-    print(i)
 
+# classes
