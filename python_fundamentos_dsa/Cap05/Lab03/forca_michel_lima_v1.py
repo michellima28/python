@@ -26,11 +26,11 @@ class Hangman():
         # print mistakes
         print('\nErros: {}'.format(mistake_list))
 
+
 # list that displays the hangman
 board = ['''
   +-------------+
   |             |
-  |
   |
   |
   |
@@ -42,7 +42,6 @@ board = ['''
   +-------------+
   |             |
   |             O
-  |
   |
   |
   |
@@ -55,7 +54,6 @@ board = ['''
   |             O
   |             |
   |             |
-  |
   |
   |
   |           
@@ -68,7 +66,6 @@ board = ['''
   |             |
   |            
   |
-  |
   |           
              ''',
              '''
@@ -78,7 +75,6 @@ board = ['''
   |            /|\ 
   |             |
   |            
-  |
   |
   |           
              ''',
@@ -90,7 +86,6 @@ board = ['''
   |             |
   |            /
   |
-  |
   |                
              ''',
              '''
@@ -101,7 +96,6 @@ board = ['''
   |             |
   |            / \ 
   |
-  |
   |             
              ''']
 
@@ -110,7 +104,7 @@ with open('C:\github\python\python_fundamentos_dsa\Cap05\Lab03\palavras.txt', 'r
     words = file.read()
 
 # printing the content
-print('\n' + words)
+#print('\n' + words)
 
 # transform content in list
 words_list = words.split('\n')
@@ -128,19 +122,34 @@ incr = 0
 
 # guess if there is a letter in a word
 while len(mistake_list) < len(board)-1:
+
     Hangman.show_head()
     Hangman.show_chosen_word()
     Hangman.show_board()
     Hangman.show_status()
+
     chosen_letter = input(str('\nEscolha uma letra: '))
+
     if chosen_letter in chosen_word:
-        print('\nTem a letra "{}" na palavra {}'.format(chosen_letter, chosen_word))
+        #print('\nTem a letra "{}" na palavra {}'.format(chosen_letter, chosen_word))
         success_list.append(chosen_letter)
+
+        display_list = []
+        for i in range(len(chosen_word)):
+            display_list.append('_')
+
+        print(' '.join(display_list))
+        print(list(enumerate(display_list)))
+
         os.system('cls')
     else:
-        print('\nNão tem a letra "{}" na palavra "{}"'.format(chosen_letter, chosen_word))
+        #print('\nNão tem a letra "{}" na palavra "{}"'.format(chosen_letter, chosen_word))
         mistake_list.append(chosen_letter)
         os.system('cls')
         incr += 1
 
-
+os.system('cls')
+Hangman.show_head()
+Hangman.show_chosen_word()
+Hangman.show_board()
+print('--------------- GAME OVER =(  ---------------- ')
