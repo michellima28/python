@@ -26,6 +26,25 @@ class Hangman():
         # print mistakes
         print('\nErros: {}'.format(mistake_list))
 
+    def show_display_list(x):
+        for i in range(len(chosen_word)):
+            x.append('_')
+
+        print(' '.join(x))
+
+    def update_display_list(cw, cl, dl):
+
+        cw = dict(enumerate(cw))
+        cl = dict(enumerate(cl))
+        dl = dict(enumerate(dl))
+
+        for i, j in zip(cw, cw.values()):
+            for x, y in zip(cl, cl.values()):
+                if j == y:
+                    dl[i] = y
+                else:
+                    continue
+
 
 # list that displays the hangman
 board = ['''
@@ -99,8 +118,11 @@ board = ['''
   |             
              ''']
 
+# list that displays wich word the user have been guessed
+display_list = []
+
 # importing txt file
-with open('C:\github\python\python_fundamentos_dsa\Cap05\Lab03\palavras.txt', 'r') as file:
+with open('palavras.txt', 'r') as file:
     words = file.read()
 
 # printing the content
@@ -126,6 +148,7 @@ while len(mistake_list) < len(board)-1:
     Hangman.show_head()
     Hangman.show_chosen_word()
     Hangman.show_board()
+    Hangman.show_display_list(display_list)
     Hangman.show_status()
 
     chosen_letter = input(str('\nEscolha uma letra: '))
@@ -134,12 +157,7 @@ while len(mistake_list) < len(board)-1:
         #print('\nTem a letra "{}" na palavra {}'.format(chosen_letter, chosen_word))
         success_list.append(chosen_letter)
 
-        display_list = []
-        for i in range(len(chosen_word)):
-            display_list.append('_')
-
-        print(' '.join(display_list))
-        print(list(enumerate(display_list)))
+        Hangman.update_display_list(chosen_word, chosen_letter, display_list)
 
         os.system('cls')
     else:
