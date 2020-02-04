@@ -3,6 +3,9 @@
 import random
 import os
 
+# list that displays wich word the user have been guessed
+display_list = []
+
 # Classes and sub-classes
 class Hangman():
 
@@ -42,6 +45,7 @@ class Hangman():
             for x, y in zip(cl, cl.values()):
                 if j == y:
                     dl[i] = y
+                    print(dl)
                 else:
                     continue
 
@@ -118,15 +122,9 @@ board = ['''
   |             
              ''']
 
-# list that displays wich word the user have been guessed
-display_list = []
-
 # importing txt file
 with open('palavras.txt', 'r') as file:
     words = file.read()
-
-# printing the content
-#print('\n' + words)
 
 # transform content in list
 words_list = words.split('\n')
@@ -148,7 +146,6 @@ while len(mistake_list) < len(board)-1:
     Hangman.show_head()
     Hangman.show_chosen_word()
     Hangman.show_board()
-    Hangman.show_display_list(display_list)
     Hangman.show_status()
 
     chosen_letter = input(str('\nEscolha uma letra: '))
@@ -170,4 +167,5 @@ os.system('cls')
 Hangman.show_head()
 Hangman.show_chosen_word()
 Hangman.show_board()
+Hangman.show_display_list(display_list)
 print('--------------- GAME OVER =(  ---------------- ')
