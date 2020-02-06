@@ -3,37 +3,45 @@
 import random
 import os
 
-# list that displays wich word the user have been guessed
-display_list = []
-
-# Classes and sub-classes
+# classes and sub-classes
 class Hangman():
 
-    def show_head():
+    def show_header():
         print('\n ---------------- JOGO DA FORCA ---------------- ')
 
+    def import_file():
+        with open('palavras.txt', 'r') as file:
+            w = file.read()
+            return w
+
+    def words_list():
+        wl = words.split('\n')
+        wl.remove('')
+        return wl
+
+    def chosen_word():
+        cw = random.choice(words_list)
+        return cw
+
     def show_chosen_word():
-        # print the chosen one
-        print('\nA palavra sorteada foi: {}'.format(chosen_word))
+        print('\n  A palavra era: {}' .format(chosen_word))
 
-    def show_board():
-        print(board[incr])
 
-    def show_status():
-        # print errors list
-        #print('\nTamanho da lista de erros: ' + str(len(mistake_list)))
-        # print chosen word
-        #print('\nTaamanho da lista da ´palavra sorteada: ' + str(len(chosen_word)))
-        # print hints
-        print('\nAcertos: {}'.format(success_list))
-        # print mistakes
-        print('\nErros: {}'.format(mistake_list))
+    def ask_a_letter():
+        cl = input(str('\n  Escolha uma letra: '))
+        return cl
 
-    def show_display_list(x):
-        for i in range(len(chosen_word)):
-            x.append('_')
+    def show_board(i):
+        print(board[i])
 
-        print(' '.join(x))
+    def display_list(cw):
+        ds = []
+        for i in range(len(cw)):
+            ds.append('_')
+        return ds
+
+    def show_display_list():
+        print('  {}' .format(display_list))
 
     def update_display_list(cw, cl, dl):
 
@@ -45,12 +53,19 @@ class Hangman():
             for x, y in zip(cl, cl.values()):
                 if j == y:
                     dl[i] = y
-                    print(dl)
                 else:
                     continue
 
+        return list(dl.values())
 
-# list that displays the hangman
+    def show_status(sl, ml):
+        #print('\n  Acertos: {}'.format(sl))
+        print('\n  Erros: {}'.format(ml))
+
+    def show_game_over():
+        print('  --------------- GAME OVER =(  ---------------- ')
+
+# list that shows the hangman
 board = ['''
   +-------------+
   |             |
@@ -122,50 +137,35 @@ board = ['''
   |             
              ''']
 
-# importing txt file
-with open('palavras.txt', 'r') as file:
-    words = file.read()
-
-# transform content in list
-words_list = words.split('\n')
-words_list.remove('')
-
-# choose a randomic word in a list
-chosen_word = random.choice(words_list)
-
-# success and mistake lists
+# creating objects
+words = Hangman.import_file()
+words_list = Hangman.words_list()
+chosen_word = Hangman.chosen_word()
+display_list = Hangman.display_list(chosen_word)
 success_list = []
 mistake_list = []
-
-# incremental variable
 incr = 0
 
 # guess if there is a letter in a word
 while len(mistake_list) < len(board)-1:
 
-    Hangman.show_head()
-    Hangman.show_chosen_word()
-    Hangman.show_board()
-    Hangman.show_status()
-
-    chosen_letter = input(str('\nEscolha uma letra: '))
+    Hangman.show_header()
+    Hangman.show_board(incr)
+    Hangman.show_display_list()
+    Hangman.show_status(success_list, mistake_list)
+    chosen_letter = Hangman.ask_a_letter()
 
     if chosen_letter in chosen_word:
-        #print('\nTem a letra "{}" na palavra {}'.format(chosen_letter, chosen_word))
         success_list.append(chosen_letter)
-
-        Hangman.update_display_list(chosen_word, chosen_letter, display_list)
-
+        display_list = Hangman.update_display_list(chosen_word, chosen_letter, display_list)
         os.system('cls')
     else:
-        #print('\nNão tem a letra "{}" na palavra "{}"'.format(chosen_letter, chosen_word))
         mistake_list.append(chosen_letter)
         os.system('cls')
         incr += 1
 
 os.system('cls')
-Hangman.show_head()
+Hangman.show_header()
+Hangman.show_board(incr)
+Hangman.show_game_over()
 Hangman.show_chosen_word()
-Hangman.show_board()
-Hangman.show_display_list(display_list)
-print('--------------- GAME OVER =(  ---------------- ')
