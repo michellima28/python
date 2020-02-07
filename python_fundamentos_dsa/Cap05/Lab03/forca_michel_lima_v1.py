@@ -1,46 +1,56 @@
 # -*- coding:utf-8 -*-
 # import libraries
 import random
-import os
+import subprocess as sp
+import sys
 
 # classes and sub-classes
 class Hangman():
 
     def show_header():
+
         print('\n ---------------- JOGO DA FORCA ---------------- ')
 
     def import_file():
+
         with open('palavras.txt', 'r') as file:
             w = file.read()
             return w
 
     def words_list():
+
         wl = words.split('\n')
         wl.remove('')
         return wl
 
     def chosen_word():
+
         cw = random.choice(words_list)
         return cw
 
     def show_chosen_word():
+
         print('\n  A palavra era: {}' .format(chosen_word))
 
 
     def ask_a_letter():
+
         cl = input(str('\n  Escolha uma letra: '))
         return cl
 
     def show_board(i):
+
         print(board[i])
 
     def display_list(cw):
+
         ds = []
         for i in range(len(cw)):
             ds.append('_')
         return ds
 
     def show_display_list():
+
         print('  {}' .format(display_list))
 
     def update_display_list(cw, cl, dl):
@@ -59,11 +69,33 @@ class Hangman():
         return list(dl.values())
 
     def show_status(sl, ml):
-        #print('\n  Acertos: {}'.format(sl))
+
         print('\n  Erros: {}'.format(ml))
 
     def show_game_over():
+
         print('  --------------- GAME OVER =(  ---------------- ')
+
+    def clear_screeen():
+
+        x = sp.call('clear', shell=True)
+        return x
+
+    def check_if_user_guessed():
+
+        if display_list == list(chosen_word):
+            Hangman.clear_screeen()
+            Hangman.show_header()
+            Hangman.show_board(incr)
+            Hangman.show_display_list()
+            print('\n  ------------ PARABÉNS! VOCÊ GANHOU O JOGO =)  ------------ ')
+            Hangman.exit_game()
+
+    def exit_game():
+
+        finalize = input('\n  Pressione a tecla ENTER para finalizar...')
+        Hangman.clear_screeen()
+        sys.exit()
 
 # list that shows the hangman
 board = ['''
@@ -149,23 +181,24 @@ incr = 0
 # guess if there is a letter in a word
 while len(mistake_list) < len(board)-1:
 
+    Hangman.clear_screeen()
     Hangman.show_header()
     Hangman.show_board(incr)
     Hangman.show_display_list()
+    Hangman.check_if_user_guessed()
     Hangman.show_status(success_list, mistake_list)
     chosen_letter = Hangman.ask_a_letter()
 
     if chosen_letter in chosen_word:
         success_list.append(chosen_letter)
         display_list = Hangman.update_display_list(chosen_word, chosen_letter, display_list)
-        os.system('cls')
     else:
         mistake_list.append(chosen_letter)
-        os.system('cls')
         incr += 1
 
-os.system('cls')
+Hangman.clear_screeen()
 Hangman.show_header()
 Hangman.show_board(incr)
 Hangman.show_game_over()
 Hangman.show_chosen_word()
+Hangman.exit_game()
