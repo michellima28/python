@@ -1,2 +1,2 @@
 # python
-Meus cursos e projetos pessoais em Python
+Courses and personal projects with Python
